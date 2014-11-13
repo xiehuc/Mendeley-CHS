@@ -52,10 +52,14 @@ var lookupServices = [{
 		id: "wikipedia",
 		name: "Wikipedia",
 		service: new WikipediaLookupService("en.wikipedia.org")
+   }, {
+      id: "baidu-trans",
+      name: "百度翻译",
+      service: new BaiduTransService()
    }
 ];
 var currentLookupService = $.grep(lookupServices, function(item) {
-	return item.id == "wikipedia-zh";
+	return item.id == "baidu-trans";
 })[0];
 
 // list of services for 'Search' menu.
@@ -68,7 +72,7 @@ var searchServices = [{
 		name: "Google Scholar",
 		url: 'http://scholar.google.com/scholar?q={searchTerms}'
 	}, {
-      name: "Baidu",
+      name: "百度",
       url: 'http://www.baidu.com/s?wd={searchTerms}'
    }, {
 		name: "Google",

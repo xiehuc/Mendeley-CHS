@@ -32,6 +32,7 @@ source=("http://desktop-download.mendeley.com/download/linux/$_pkgname-$pkgver-l
         'mendeleydesktop.install'
         'lookup-popover.css'
         'lookup-popover.js'
+        'baidu-trans.js'
         'wikipedia.js'
         )
 
@@ -40,7 +41,9 @@ package() {
     cp $srcdir/../lookup-popover.js \
        $srcdir/../lookup-popover.css\
        $srcdir/../wikipedia.js \
+       $srcdir/../baidu-trans.js \
        share/mendeleydesktop/webContent/notes/
+    patch share/mendeleydesktop/webContent/notes/lookup-popover.html lookup-popover.html.patch
 
     rm -f share/doc/mendeleydesktop/*.txt
 

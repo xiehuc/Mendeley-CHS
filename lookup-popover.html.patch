@@ -1,0 +1,10 @@
+--- lookup-popover.html	2014-11-13 19:53:53.258197339 +0800
++++ /tmp/lookup-popover.html	2014-11-13 19:54:26.309039644 +0800
+@@ -7,6 +7,7 @@
+ 	<script src="/external/js/throbber.js"></script>
+ 	<script src="/scripts/nativeui.js"></script>
+ 	<script src="/scripts/ui-util.js"></script>
++	<script src="/notes/baidu-trans.js"></script>
+ 	<script src="/notes/wikipedia.js"></script>
+ 	<script src="/notes/lookup-popover.js"></script>
+ 	<meta charset="utf-8">
