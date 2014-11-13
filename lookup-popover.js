@@ -68,6 +68,9 @@ var searchServices = [{
 		name: "Google Scholar",
 		url: 'http://scholar.google.com/scholar?q={searchTerms}'
 	}, {
+      name: "Baidu",
+      url: 'http://www.baidu.com/s?wd={searchTerms}'
+   }, {
 		name: "Google",
 		url: "http://www.google.com/search?q={searchTerms}"
 	}
