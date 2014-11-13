@@ -30,13 +30,17 @@ fi
 #http://desktop-download.mendeley.com/download/linux/mendeleydesktop-1.12-linux-i486.tar.bz2
 source=("http://desktop-download.mendeley.com/download/linux/$_pkgname-$pkgver-linux-$_arch.tar.bz2"
         'mendeleydesktop.install'
+        'lookup-popover.css'
         'lookup-popover.js'
         'wikipedia.js'
         )
 
 package() {
     cd "$_pkgname-$pkgver-linux-$_arch"
-    cp $srcdir/../lookup-popover.js $srcdir/../wikipedia.js share/mendeleydesktop/webContent/notes/
+    cp $srcdir/../lookup-popover.js \
+       $srcdir/../lookup-popover.css\
+       $srcdir/../wikipedia.js \
+       share/mendeleydesktop/webContent/notes/
 
     rm -f share/doc/mendeleydesktop/*.txt
 

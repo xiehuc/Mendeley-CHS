@@ -2,17 +2,17 @@
 // - See http://www.mediawiki.org/wiki/API:Search for documentation on the API itself
 // - See http://www.mediawiki.org/wiki/API:Etiquette for guidelines on polite
 // usage
-var WikipediaLookupService = (function(domain="en.wikipedia.org") {
+var WikipediaLookupService = (function() {
 	'use strict';
 	
-	function WikipediaLookupService() {}
-
-	WikipediaLookupService._serviceDomain = "http://"+domain;
+	function WikipediaLookupService(domain) {
+      this._serviceDomain = "http://" + domain;
+   }
 
 	WikipediaLookupService.prototype._apiQuery = function(data, successCallback, errCallback) {
 		$.ajax({
 			type: "GET",
-			url: WikipediaLookupService._serviceDomain + "/w/api.php",
+			url: this._serviceDomain + "/w/api.php",
 			dataType: "json",
 			data: data,
 			success: successCallback,
@@ -24,8 +24,8 @@ var WikipediaLookupService = (function(domain="en.wikipedia.org") {
 		});
 	};
 
-	WikipediaLookupService._urlForTitle = function(title) {
-		return WikipediaLookupService._serviceDomain + "/wiki/" + encodeURIComponent(title);
+	WikipediaLookupService._urlForTitle = function(domain, title) {
+		return domain + "/wiki/" + encodeURIComponent(title);
 	};
 
 	/** Returns the page title for a given URL.
@@ -33,14 +33,16 @@ var WikipediaLookupService = (function(domain="en.wikipedia.org") {
 	 */
 	WikipediaLookupService.titleForUrl = function(url) {
 		var urlPatterns = [
-			domain+'/wiki/(.*)',
+			'[^.]+.wikipedia.org/wiki/(.*)',
 			'dbpedia.org/page/(.*)',
 			'dbpedia.org/resource/(.*)'
 		];
 
 		var title = null;
 		urlPatterns.forEach(function(pattern) {
+         console.log(url);
 			var result = url.match(pattern);
+         console.log(result);
 			if (result) {
 				title = decodeURIComponent(result[1]);
 			}
@@ -119,13 +121,14 @@ var WikipediaLookupService = (function(domain="en.wikipedia.org") {
 	 *  be used to show the reason for inclusion of a particular page in search results.
 	 */
 	WikipediaLookupService.prototype.lookupPages = function(titles, snippets, successCallback, errCallback) {
+      var domain = this._serviceDomain;
 		this._fetchExtracts(
 			titles, function(extracts) {
 			var entities = [];
 			extracts.forEach(function(extract) {
 				entities.push({
 					text: extract.title,
-					entityUri: WikipediaLookupService._urlForTitle(extract.title),
+					entityUri: WikipediaLookupService._urlForTitle(domain, extract.title),
 					description: extract.extract,
 					explanation: snippets[extract.title]
 				});

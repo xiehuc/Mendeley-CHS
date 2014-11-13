@@ -55,7 +55,7 @@ var lookupServices = [{
    }
 ];
 var currentLookupService = $.grep(lookupServices, function(item) {
-	return item.id == "wikipedia";
+	return item.id == "wikipedia-zh";
 })[0];
 
 // list of services for 'Search' menu.
