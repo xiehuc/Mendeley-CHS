@@ -11,8 +11,23 @@ depends=(python2 qtwebkit)
 conflicts=mendeleydesktop
 license=(custom:mendeley_eula)
 install=mendeleydesktop.install
-md5sums=('' '16358cd53dc258a72efcaeab5a415217')
+md5sums=('' 
+   '16358cd53dc258a72efcaeab5a415217'
+   '4bcb0ce6f2f80f5849dd8178f33005eb'
+   'ee504d5e1afaa4645a2842f851740113'
+   '5fe4fcb8034ca17be6959b393603b0c5'
+   '0d036053a666ebc6120459abfaf0a57d'
+   '1c6e1c658c66111ff8987ec9a2af4a8d'
+   )
 
+source=("http://desktop-download.mendeley.com/download/linux/$_pkgname-$pkgver-linux-$_arch.tar.bz2"
+        'mendeleydesktop.install'
+        'lookup-popover.html.patch'
+        'lookup-popover.css'
+        'lookup-popover.js'
+        'baidu-trans.js'
+        'wikipedia.js'
+        )
 
 if [[ $CARCH = i686 ]];then
   _arch=i486
@@ -28,22 +43,15 @@ if which gconftool-2 &>/dev/null;then
 fi
 
 #http://desktop-download.mendeley.com/download/linux/mendeleydesktop-1.12-linux-i486.tar.bz2
-source=("http://desktop-download.mendeley.com/download/linux/$_pkgname-$pkgver-linux-$_arch.tar.bz2"
-        'mendeleydesktop.install'
-        'lookup-popover.css'
-        'lookup-popover.js'
-        'baidu-trans.js'
-        'wikipedia.js'
-        )
 
 package() {
     cd "$_pkgname-$pkgver-linux-$_arch"
-    cp $srcdir/../lookup-popover.js \
-       $srcdir/../lookup-popover.css\
-       $srcdir/../wikipedia.js \
-       $srcdir/../baidu-trans.js \
+    cp $startdir/lookup-popover.js \
+       $startdir/lookup-popover.css\
+       $startdir/wikipedia.js \
+       $startdir/baidu-trans.js \
        share/mendeleydesktop/webContent/notes/
-    patch share/mendeleydesktop/webContent/notes/lookup-popover.html lookup-popover.html.patch
+    patch share/mendeleydesktop/webContent/notes/lookup-popover.html $startdir/lookup-popover.html.patch
 
     rm -f share/doc/mendeleydesktop/*.txt
 
