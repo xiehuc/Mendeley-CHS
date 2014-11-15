@@ -54,7 +54,7 @@ var lookupServices = [{
 		service: new WikipediaLookupService("en.wikipedia.org")
    }, {
       id: "baidu-trans",
-      name: "百度翻译",
+      name: "百度词典",
       service: new BaiduTransService()
    }
 ];

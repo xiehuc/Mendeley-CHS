@@ -14,6 +14,7 @@ var BaiduTransService = (function() {
 			url: BaiduTransService._serviceDomain + "/public/2.0/translate/dict/simple" ,
 			dataType: "json",
 			data: data,
+         timeout: 5000,
 			success: successCallback,
 			error: function(xhr, status, errorThrown) {
 				console.log("Baidu API error: " + status + ":" + errorThrown);
@@ -40,10 +41,11 @@ var BaiduTransService = (function() {
 		}
 
 		var query = selection.text.toLowerCase();
+      query = query.replace(/\W/g,"");
 
 		var searchErrorHandler = function(error) {
-			console.log("Wikipedia search failed with error: " + error);
-			errCallback('Unable to search Wikipedia for matching pages: ' + error);
+			console.log("Baidu Trans failed with error: " + error);
+			errCallback('Unable to translate for matching pages: ' + error);
 		}
 
 		var self = this;
@@ -57,6 +59,11 @@ var BaiduTransService = (function() {
 				searchErrorHandler(""+data.errno);
 				return;
 			}
+
+         if (data.data.symbols == undefined) {
+				searchErrorHandler("empty result");
+            return;
+         }
 
          var entities = data.data.symbols.map(function(symbol){
             return {
